@@ -9,6 +9,9 @@ def agregar_producto(inventario, nombre, precio, cantidad):
 def mostrar_inventario(inventario):
     if not inventario:
         print("inventario vacío")
+    else:
+        for p in inventario:
+            print(f"nombre: {p['nombre']} | Precio: {p['precio']} | Cantidad: {p['cantidad']}")
 
 def buscar_producto(inventario, nombre):
     for producto in inventario:
@@ -32,7 +35,7 @@ def eliminar_producto(inventario, nombre):
     producto = buscar_producto(inventario, nombre) 
 
     if producto:
-        inventario.remove (producto)
+        inventario.remove(producto)
     else:
         print("Producto no encontrado")
 
@@ -41,11 +44,13 @@ def calcular_estadistica(inventario):
     if not inventario:
         return None
 
-    subtotal = (lambda p:["precio"] * p["cantidad"])
+    subtotal = lambda p:["precio"] * p["cantidad"]
+
     unidades_totales = sum(p["cantidad"] for p in inventario)
     valor_total = sum(subtotal(p) for p in inventario)
+
     producto_mas_caro = max(inventario, key=lambda p: p["precio"])
-    producto_stock_mayor = max(inventario, kye=lambda p: p["cantidad"])
+    producto_stock_mayor = max(inventario, key=lambda p: p["cantidad"])
 
     return {
         "unidade totales": unidades_totales,
