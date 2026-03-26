@@ -17,7 +17,11 @@ while opcion != "9":
     print("8. Cargar csv")
     print("9. Salir")
 
-    opcion = int(input("Seleccione una opción: "))
+    try:
+        opcion = int(input("Seleccione una opción: "))
+    except: 
+        print("Error en la opcion seleccionada")
+        continue    
 
     if opcion == "1":
         nombre = input("ingrese nombre a agregar: " )
@@ -44,32 +48,40 @@ while opcion != "9":
             except:
                 print("Error: número inválido")
 
-        agregar_producto()
+        agregar_producto(inventario, nombre, precio, cantidad)
+        print("Producto agregado")
 
     elif opcion == "2":
-        mostrar_inventario()
+        mostrar_inventario(inventario)
 
     elif opcion == "3":
         buscar = input("Buscar: ")   
-        print(buscar_producto(inventario, nombre, precio, cantidad or "No encontrado"))
+        resultado = buscar_producto(inventario, buscar)
+
+        if resultado:
+            print(resultado)
+        else: 
+            print("No encontrado")
 
     elif opcion == "4":
         nombre = input("Producto exitente: ")
-        precio = input("Ingrese nuevo precio: ")
-        cantidad = input("Agregar nueva cantida: ")
+
+        precio = input("Ingrese nuevo precio (Enter para omitir): ")
+        cantidad = input("Ingrese nueva cantidad (Enter para omitir): ")
 
         precio = float(precio) if precio else None
         cantidad = int(cantidad) if cantidad else None 
 
-        actualizar_producto()
+        actualizar_producto(inventario, nombre, nuevo_precio=None, nueva_cantidad=None)
+        print("Prodcuto actualizado")
 
     elif opcion == "5":
         nombre = input("Ingrese nombre a eliminar: ")
-
-        eliminar_producto()
+        eliminar_producto(inventario, nombre)
+        print("Produto elimminado exitosamente")
 
     elif opcion == "6":
-        stats = calcular_estadistica()
+        stats = calcular_estadistica(inventario)
 
         if stats:
             print(stats)
@@ -78,25 +90,28 @@ while opcion != "9":
 
     elif opcion == "7":
         ruta = input("Ruta: ")
-        guardar_csv()
+        guardar_csv(inventario, ruta, incluir_header=True)
+        print("Archivo  guardado")
 
     elif opcion == "8":
-          ruta = input("Ruta: ")
-          nuevo =  cargar_csv()
+        ruta = input("Ruta: ")
+        nuevo =  cargar_csv(ruta)
 
-          if nuevo:
-                decision = input("¿Sobrescribir? (S/N): ").lower()
+        if nuevo:
+            decision = input("¿Sobrescribir? (S/N): ").lower()
 
-                if decision == "s":
-                    inventario = nuevo 
-                else:
-                    for p in nuevo:
-                        existente = buscar_producto(inventario, p["nombrre"])
-                        if existente:
-                            existente["cantidad"] += p["cantidad"]
-                            existente["precio "] = p["precio"]
-                        else:
-                            inventario.append(p)
+            if decision == "s":
+                inventario = nuevo 
+            else:
+                for p in nuevo:
+                    existente = buscar_producto(inventario, p["nombrre"])
+                    if existente:
+                        existente["cantidad"] += p["cantidad"]
+                        existente["precio "] = p["precio"]
+                    else:
+                        inventario.append(p)
+
+        print("Datos guardados")
 
     elif opcion != "9":
         print("opcion invalida") 
