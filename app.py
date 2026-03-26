@@ -95,7 +95,14 @@ while opcion != "9":
                         if existente:
                             existente["cantidad"] += p["cantidad"]
                             existente["precio "] = p["precio"]
-                            
+                        else:
+                            inventario.append(p)
+
+    elif opcion != "9":
+        print("opcion invalida") 
+
+print("Programa finalizado")                        
+
 
                   
              
