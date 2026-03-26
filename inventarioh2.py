@@ -96,7 +96,4 @@ while True:
     else:
         print("Opción inválida. Intente nuevamente.")                        
 
-        
-
-
-
+    
