@@ -18,7 +18,7 @@ while opcion != "9":
     print("9. Salir")
 
     try:
-        opcion = int(input("Seleccione una opción: "))
+        opcion = input("Seleccione una opción: ")
     except: 
         print("Error en la opcion seleccionada")
         continue    
@@ -38,7 +38,7 @@ while opcion != "9":
                 print("Error: número inválido")
 
         valido_cantidad = False
-        while not valido_precio:
+        while not valido_cantidad:
             try:
                 cantidad = int(input("Ingrese cantidad a agregar: "))
                 if cantidad >= 0:
@@ -117,19 +117,3 @@ while opcion != "9":
         print("opcion invalida") 
 
 print("Programa finalizado")                        
-
-
-                  
-             
-
-
-
-
-
-
-
-
-
-
-
-            
