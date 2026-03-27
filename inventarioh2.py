@@ -2,7 +2,7 @@
 inventario = []
 
 #funcion agregrar productos
-def agregar_productos():
+def agregar_productos(inventario, nombre, precio, cantidad):
     print("\n---- Agregar prodcuto ----")
 
     #pedimos nombre del producto

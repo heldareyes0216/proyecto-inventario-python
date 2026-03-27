@@ -1,7 +1,21 @@
-from servicios import *
-from archivos import *
+"""
+app.py
+Punto de entrada al sistema del inventario
+Menu principal conn opciones 1-9 para CRUD, estadisticas y persistencias CSV
+"""
+from servicios import (
+    agregar_producto,
+    mostrar_inventario,
+    buscar_producto,
+    actualizar_producto,
+    eliminar_producto,
+    calcular_estadisticas, 
+)
+from archivos import guardar_csv, cargar_csv
 
+# inventario en memoriia: lista de diccionarios
 inventario = []
+
 opcion = ""
 
 while opcion != "9":
@@ -23,8 +37,12 @@ while opcion != "9":
         print("Error en la opcion seleccionada")
         continue    
 
+    #  Opcion1: agregar producto
     if opcion == "1":
-        nombre = input("ingrese nombre a agregar: " )
+        nombre = input("Nombre del producto: ").strip()
+        if not nombre:
+            print("El nombre no puede estar vacío")
+            continue
 
         valido_precio = False
         while not valido_precio:
@@ -50,18 +68,23 @@ while opcion != "9":
 
         agregar_producto(inventario, nombre, precio, cantidad)
         print("Producto agregado")
-
+    
+    # opción 2: mostrar producto
     elif opcion == "2":
         mostrar_inventario(inventario)
-
+    
+    # opcion 3: Buscar producto
     elif opcion == "3":
-        buscar = input("Buscar: ")   
-        resultado = buscar_producto(inventario, buscar)
+        nombre = input("Nombre a buscar: ").strip()   
+        resultado = buscar_producto(inventario, nombre)
 
         if resultado:
-            print(resultado)
+            print(f"\nProducto encontrado:")
+            print(f" Nombre: {resultado['nombre']}")
+            print(f" Precio: ${resultado['precio']:.2f}")
+    
         else: 
-            print("No encontrado")
+            print(f"Producto {'nombre'} no encontrado.")
 
     elif opcion == "4":
         nombre = input("Producto exitente: ")
@@ -81,7 +104,7 @@ while opcion != "9":
         print("Produto elimminado exitosamente")
 
     elif opcion == "6":
-        stats = calcular_estadistica(inventario)
+        stats = calcular_estadisticas(inventario)
 
         if stats:
             print(stats)
