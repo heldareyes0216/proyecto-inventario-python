@@ -1,3 +1,5 @@
+import re
+
 """
 servivios.py
 módulo con las operacione CRUD y estadísticas del inventario.
@@ -30,10 +32,10 @@ def mostrar_inventario(inventario):
     if not inventario:
         print("inventario vacío")
     else:
-        print("\n{:<20} {:>10}".format("nombre", "precio", "cantidad"))
-        print("-" * 40)
+        print("\n{:<20} {:>10} {:>20}".format("nombre", "precio", "cantidad"))
+        print("-" * 60)
         for p in inventario:
-            print("{:<20} {:>10.2f} {:>10}".format(
+            print("{:<20} {:>10.2f} {:>20}".format(
             p["nombre"], p["precio"], p["cantidad"]
             ))
 
@@ -124,3 +126,8 @@ def calcular_estadisticas(inventario):
         "producto_mas_caro": (producto_mas_caro["nombre"], producto_mas_caro["precio"]),
         "producto_stock_mayor": (producto_stock_mayor["nombre"], producto_stock_mayor["cantidad"])
     }
+
+def buscar_productos(inventario, nombre):
+    expresion = fr"{nombre}"
+    
+    return list(filter(lambda p: re.search(expresion, p['nombre']), inventario))

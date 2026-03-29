@@ -7,6 +7,7 @@ from servicios import (
     agregar_producto,
     mostrar_inventario,
     buscar_producto,
+    buscar_productos,
     actualizar_producto,
     eliminar_producto,
     calcular_estadisticas, 
@@ -67,7 +68,7 @@ while opcion != "9":
                 print("Error: número inválido")
 
         agregar_producto(inventario, nombre, precio, cantidad)
-        print("Producto agregado")
+        print("\nProducto agregado")
     
     # opción 2: mostrar producto
     elif opcion == "2":
@@ -76,15 +77,17 @@ while opcion != "9":
     # opcion 3: Buscar producto
     elif opcion == "3":
         nombre = input("Nombre a buscar: ").strip()   
-        resultado = buscar_producto(inventario, nombre)
+        resultados = buscar_productos(inventario, nombre)
 
-        if resultado:
-            print(f"\nProducto encontrado:")
-            print(f" Nombre: {resultado['nombre']}")
-            print(f" Precio: ${resultado['precio']:.2f}")
-    
-        else: 
-            print(f"Producto {'nombre'} no encontrado.")
+        if len(resultados) < 1:
+            print(f"Producto {nombre} no encontrado.")
+        else:
+            for producto in resultados:
+                print(f"\nProducto encontrado:")
+                print(f" Nombre: {producto['nombre']}")
+                print(f" Precio: ${producto['precio']:.2f}")
+                print(f"Cantidad: {producto['cantidad']}")
+
 
     elif opcion == "4":
         nombre = input("Producto exitente: ")
@@ -96,12 +99,12 @@ while opcion != "9":
         cantidad = int(cantidad) if cantidad else None 
 
         actualizar_producto(inventario, nombre, nuevo_precio=None, nueva_cantidad=None)
-        print("Prodcuto actualizado")
+        print("\nProducto actualizado")
 
     elif opcion == "5":
         nombre = input("Ingrese nombre a eliminar: ")
         eliminar_producto(inventario, nombre)
-        print("Produto elimminado exitosamente")
+        print("\nProducto elimminado exitosamente")
 
     elif opcion == "6":
         stats = calcular_estadisticas(inventario)
@@ -139,4 +142,4 @@ while opcion != "9":
     elif opcion != "9":
         print("opcion invalida") 
 
-print("Programa finalizado")                        
+print("\nPrograma finalizado")                        
