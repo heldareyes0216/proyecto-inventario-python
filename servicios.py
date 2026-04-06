@@ -30,8 +30,8 @@ def mostrar_inventario(inventario):
     if not inventario:
         print("inventario vacío")
     else:
-        print("\n{:<20} {:>10}".format("nombre", "precio", "cantidad"))
-        print("-" * 40)
+        print("\n{:<20} {:>10} {:>10}".format("nombre", "precio", "cantidad"))
+        print("-" * 45)
         for p in inventario:
             print("{:<20} {:>10.2f} {:>10}".format(
             p["nombre"], p["precio"], p["cantidad"]
