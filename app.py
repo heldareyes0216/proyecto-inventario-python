@@ -37,7 +37,7 @@ while opcion != "9":
         print("Error en la opcion seleccionada")
         continue    
 
-    #  Opcion1: agregar producto
+    #  Opcion 1: agregar producto
     if opcion == "1":
         nombre = input("Nombre del producto: ").strip()
         if not nombre:
@@ -73,35 +73,42 @@ while opcion != "9":
     elif opcion == "2":
         mostrar_inventario(inventario)
     
-    # opcion 3: Buscar producto
+    # opción 3: Buscar producto
     elif opcion == "3":
         nombre = input("Nombre a buscar: ").strip()   
         resultado = buscar_producto(inventario, nombre)
 
         if resultado:
             print(f"\nProducto encontrado:")
-            print(f" Nombre: {resultado['nombre']}")
-            print(f" Precio: ${resultado['precio']:.2f}")
+            print(f" NOMBRE: {resultado['nombre']}")
+            print(f" PRECIO: ${resultado['precio']:.2f}")
+            print(f" CANTIDAD: {resultado['cantidad']}")
     
         else: 
             print(f"Producto {'nombre'} no encontrado.")
 
     elif opcion == "4":
-        nombre = input("Producto exitente: ")
+        nombre = input("Nombre del producto a actualizar: ").strip()
 
-        precio = input("Ingrese nuevo precio (Enter para omitir): ")
-        cantidad = input("Ingrese nueva cantidad (Enter para omitir): ")
+        # verificar que existe antes antes de pedir datos 
+        if not buscar_producto(inventario, nombre):
+            print(f"Producto '{nombre}' no encontrado")
+            continue
 
-        precio = float(precio) if precio else None
-        cantidad = int(cantidad) if cantidad else None 
+        precio = input("Ingrese nuevo precio (Enter para omitir): ").strip()
+        cantidad = input("Ingrese nueva cantidad (Enter para omitir): ").strip()
+        
+        # convertir solo si el usuario ingresó algo
+        nuevo_precio = float(precio) if precio else None
+        nueva_cantidad = int(cantidad) if cantidad else None 
 
-        actualizar_producto(inventario, nombre, nuevo_precio=None, nueva_cantidad=None)
-        print("Prodcuto actualizado")
+        actualizar_producto(inventario, nombre, nuevo_precio, nueva_cantidad)
+        print("Producto actualizado")
 
     elif opcion == "5":
         nombre = input("Ingrese nombre a eliminar: ")
         eliminar_producto(inventario, nombre)
-        print("Produto elimminado exitosamente")
+        print("Producto elimminado exitosamente")
 
     elif opcion == "6":
         stats = calcular_estadisticas(inventario)
