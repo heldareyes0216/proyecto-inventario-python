@@ -6,7 +6,7 @@ Menu principal conn opciones 1-9 para CRUD, estadisticas y persistencias CSV
 from servicios import (
     agregar_producto,
     mostrar_inventario,
-    buscar_producto,
+    buscar_productos,
     actualizar_producto,
     eliminar_producto,
     calcular_estadisticas, 
@@ -67,7 +67,7 @@ while opcion != "9":
                 print("Error: número inválido")
 
         agregar_producto(inventario, nombre, precio, cantidad)
-        print("Producto agregado")
+        print("\nProducto agregado")
     
     # opción 2: mostrar producto
     elif opcion == "2":
@@ -76,22 +76,23 @@ while opcion != "9":
     # opción 3: Buscar producto
     elif opcion == "3":
         nombre = input("Nombre a buscar: ").strip()   
-        resultado = buscar_producto(inventario, nombre)
+        resultados = buscar_productos(inventario, nombre)
 
-        if resultado:
-            print(f"\nProducto encontrado:")
-            print(f" NOMBRE: {resultado['nombre']}")
-            print(f" PRECIO: ${resultado['precio']:.2f}")
-            print(f" CANTIDAD: {resultado['cantidad']}")
-    
-        else: 
-            print(f"Producto {'nombre'} no encontrado.")
+        if len(resultados) < 1:
+            print(f"Producto {nombre} no encontrado.")
+        else:
+            for producto in resultados:
+                print(f"\nProducto encontrado:")
+                print(f" Nombre: {producto['nombre']}")
+                print(f" Precio: ${producto['precio']:.2f}")
+                print(f"Cantidad: {producto['cantidad']}")
+
 
     elif opcion == "4":
         nombre = input("Nombre del producto a actualizar: ").strip()
 
         # verificar que existe antes antes de pedir datos 
-        if not buscar_producto(inventario, nombre):
+        if not buscar_productos(inventario, nombre):
             print(f"Producto '{nombre}' no encontrado")
             continue
 
@@ -102,13 +103,22 @@ while opcion != "9":
         nuevo_precio = float(precio) if precio else None
         nueva_cantidad = int(cantidad) if cantidad else None 
 
+
         actualizar_producto(inventario, nombre, nuevo_precio, nueva_cantidad)
         print("Producto actualizado")
+
+        actualizar_producto(inventario, nombre, nuevo_precio=None, nueva_cantidad=None)
+        print("\nProducto actualizado")
+
 
     elif opcion == "5":
         nombre = input("Ingrese nombre a eliminar: ")
         eliminar_producto(inventario, nombre)
+
         print("Producto elimminado exitosamente")
+
+        print("\nProducto elimminado exitosamente")
+
 
     elif opcion == "6":
         stats = calcular_estadisticas(inventario)
@@ -134,7 +144,7 @@ while opcion != "9":
                 inventario = nuevo 
             else:
                 for p in nuevo:
-                    existente = buscar_producto(inventario, p["nombrre"])
+                    existente = buscar_productos(inventario, p["nombrre"])
                     if existente:
                         existente["cantidad"] += p["cantidad"]
                         existente["precio "] = p["precio"]
@@ -146,4 +156,4 @@ while opcion != "9":
     elif opcion != "9":
         print("opcion invalida") 
 
-print("Programa finalizado")                        
+print("\nPrograma finalizado")                        
