@@ -39,21 +39,20 @@ def mostrar_inventario(inventario):
             p["nombre"], p["precio"], p["cantidad"]
             ))
 
-def buscar_producto(inventario, nombre):
+def buscar_productos(inventario, nombre):
     """
-    Busca un producto por nombre 
+    Busca productos cuyos nombres coincidan con un patrón de expresión regular.
 
     Parametros:
-        inventario (list): list de productos
-        nombre (str): nombre del producto a buscar
+        inventario (list): lista de diccionarios de productos.
+        nombre (str): término de búsqueda o patrón regex para filtrar.
 
-    Retorna
-        dict: el producto encontrado, o None si no existe
-    """  
-    for producto in inventario:
-        if producto["nombre"] == nombre:
-            return producto
-    return None
+    Retorna:
+        list: una lista con los productos que coinciden con la búsqueda.
+    """
+    expresion = fr"{nombre}"
+    
+    return list(filter(lambda p: re.search(expresion, p['nombre']), inventario))
 
 def actualizar_producto(inventario, nombre, nuevo_precio=None, nueva_cantidad=None):
     """"
@@ -66,7 +65,7 @@ def actualizar_producto(inventario, nombre, nuevo_precio=None, nueva_cantidad=No
         nueva_cantidad (int): nueva cantidad a asignar
     """    
 
-    producto = buscar_producto(inventario, nombre)              
+    producto = buscar_productos(inventario, nombre)              
 
     if producto:
         if nuevo_precio is not None:
@@ -85,7 +84,7 @@ def eliminar_producto(inventario, nombre):
     inventario(list): lista de productos 
     nombre(str): nombre del producto a eliminar
     """
-    producto = buscar_producto(inventario, nombre) 
+    producto = buscar_productos(inventario, nombre) 
 
     if producto:
         inventario.remove(producto)
@@ -127,17 +126,3 @@ def calcular_estadisticas(inventario):
         "producto_stock_mayor": (producto_stock_mayor["nombre"], producto_stock_mayor["cantidad"])
     }
 
-def buscar_productos(inventario, nombre):
-    """
-    Busca productos cuyos nombres coincidan con un patrón de expresión regular.
-
-    Parametros:
-        inventario (list): lista de diccionarios de productos.
-        nombre (str): término de búsqueda o patrón regex para filtrar.
-
-    Retorna:
-        list: una lista con los productos que coinciden con la búsqueda.
-    """
-    expresion = fr"{nombre}"
-    
-    return list(filter(lambda p: re.search(expresion, p['nombre']), inventario))
