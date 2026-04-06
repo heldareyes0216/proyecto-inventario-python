@@ -128,6 +128,16 @@ def calcular_estadisticas(inventario):
     }
 
 def buscar_productos(inventario, nombre):
+    """
+    Busca productos cuyos nombres coincidan con un patrón de expresión regular.
+
+    Parametros:
+        inventario (list): lista de diccionarios de productos.
+        nombre (str): término de búsqueda o patrón regex para filtrar.
+
+    Retorna:
+        list: una lista con los productos que coinciden con la búsqueda.
+    """
     expresion = fr"{nombre}"
     
     return list(filter(lambda p: re.search(expresion, p['nombre']), inventario))

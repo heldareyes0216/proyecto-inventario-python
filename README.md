@@ -1,5 +1,26 @@
 # inventario python 
 
+## *Descripción*: 
+este proyecto es una aplicación de consola que permite administrar inventarios, por medio de operaciones CRUD y así obtener un análisis detallado del stock en tiempo real, manteniendo los conscintencia de los datos.
+
+---
+
+## *Funcionalidades*:
+1. **Agregar**: registra productos con nombre, precio y cantidad.
+2. **Mostar**: visualización tabular de todo el inventario.
+3. **Buscar**: Localiza los productos mediante expreciones regulares.
+4. **Actualizar**: Permite modificar los precios, nombre y stock de los productos.
+5. **Eliminar**: Permite eliminar productos existentes del sistema.
+6. **Estadísticas**: Saca el cálculo automatíco de unidades totales y valor monterio del inventario. Identifica el producto más caro y el de mayor existencia.
+
+---
+
+## *Diagrama de flujo*:
+
+![alt text](<Diagrama h3.drawio.png>)
+ 
+---
+
 ## *Requisitos*:
 Para ejecuatr este programa es necesario tener instalado:
 - python 3.10 o superior
@@ -24,29 +45,10 @@ Este comando descargará el proyecto y creará una carpeta con los archivos en t
 
 4. *Verificar los archivos del proyecto*: Puedes ver los archivos dentro de la carpeta con el comando ls. Debe aparecer el archivo como inventario.py.
 
-5. *Ejecutar el programa*: Para poder ejecutar el programa debe escribir el siguiente comando en la terminal: python inventario.py y luego presiona la tecla enter.
+5. *Ejecutar el programa*: Para poder ejecutar el programa debe escribir el siguiente comando en la terminal: python main.py y luego presiona la tecla enter.
 
 6. *Usar el programa*: Cuando finalmente el programa se ejecute, pedirá la información en la terminal. *Ejemplo*: ingrese el nombre del producto: 
 Entonces debes escribir los datos solicitados y presionar enter para el programa pueda ejecutar. Si se ingresa un valor incorrecto para el precio o cantidad, el programa mostrará un mensaje de error y volverá a pedir el dato.
-
----
-
-## *Descripción*: 
-este programa permite registrar un producto en un inventario. Le solicita al usuario el nombre del producto, el precio del producto y la cantidad para finalmente calcular el costo total. Si dado caso el número ingresado no es valido, el programa mostrará un mensaje de error y lo volverá a pedir.
-
----
-
-## *Funcionalidades*:
-1. solicitar el nombre del producto.
-2. soliciatr el precio del producto y valida que el numero sea decimal.
-3. solicitar la cantidad y valid que el numero sea entero.
-4. se muestra el resumen de la informacion solicitada.
-
----
-
-## *Diagrama de flujo*:
-
-![alt text](<Captura desde 2026-03-12 17-06-32-2.png>)
 
 ---
 
